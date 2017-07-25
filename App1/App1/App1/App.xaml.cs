@@ -13,8 +13,17 @@ namespace App1
         {
             InitializeComponent();
 
-            MainPage = new App1.MainPage();
+            MainPage = new TabbedPage
+            {
+                Children =
+                {
+                    new MainPage(),
+                    new Load()
+                }
+
+            };
         }
+
 
         protected override void OnStart()
         {

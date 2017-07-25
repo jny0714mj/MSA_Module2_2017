@@ -2,6 +2,7 @@
 using Plugin.Media.Abstractions;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -41,7 +42,19 @@ namespace App1
                 return file.GetStream();
             });
 
+
+
             file.Dispose();
+
+
         }
+
+        static byte[] GetImageAsByteArray(MediaFile file)
+        {
+            var stream = file.GetStream();
+            BinaryReader binaryReader = new BinaryReader(stream);
+            return binaryReader.ReadBytes((int)stream.Length);
+        }
+
     }
 }
