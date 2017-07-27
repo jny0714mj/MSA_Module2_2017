@@ -1,11 +1,14 @@
-﻿using Plugin.Media;
+﻿using Newtonsoft.Json;
+using Plugin.Media;
 using Plugin.Media.Abstractions;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
+
 using Xamarin.Forms;
 
 namespace App1
@@ -42,10 +45,8 @@ namespace App1
                 return file.GetStream();
             });
 
-
-
-            file.Dispose();
-
+            YourAge.Text = "hmmm";
+            await MakePredictionRequest(file);
 
         }
 
@@ -56,5 +57,57 @@ namespace App1
             return binaryReader.ReadBytes((int)stream.Length);
         }
 
+        async Task MakePredictionRequest(MediaFile file)
+        {
+  
+            var client = new HttpClient();
+
+            string url = "https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect";
+            string requestParameters = "returnFaceId=true&returnFaceLandmarks=false&returnFaceAttributes=age,gender,headPose,smile,facialHair,glasses,emotion,hair,makeup,occlusion,accessories,blur,exposure,noise";
+            string uri = url + "?" + requestParameters;
+
+            client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", "acd46cd21e25495db5f5e8340550247b");
+
+            HttpResponseMessage response;
+
+            byte[] byteData = GetImageAsByteArray(file);
+            
+            using (var content = new ByteArrayContent(byteData))
+            {
+                
+                content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
+                
+
+                response = await client.PostAsync(uri, content);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseString = await response.Content.ReadAsStringAsync();
+
+                    if(responseString != "[]")
+                    {
+                        YourAge.Text = "working";
+                    }
+                    else
+                    {
+                        YourAge.Text = "face??";
+                    }
+                    
+
+                }
+                else
+                {
+                    YourAge.Text = "NOOO";
+                }
+
+
+
+                //Get rid of file once wse have finished using it
+                file.Dispose();
+            }
+
+
+
+        }
     }
 }

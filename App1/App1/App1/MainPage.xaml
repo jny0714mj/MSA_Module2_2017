@@ -3,11 +3,13 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:App1"
              x:Class="App1.MainPage"
-             Title="What is my age">
+             Title="Detect Age">
     <ContentPage.Content>
         <StackLayout Spacing="0" x:Name="layout">
             <Button Text="Open Camera" VerticalOptions="Start" Clicked="OpenCamera" HorizontalOptions="FillAndExpand" />
-            <Image x:Name="image" />
+            <Image x:Name="image"/>
+            <Label x:Name="YourAge" HorizontalOptions="Center"/>
         </StackLayout>
+        
     </ContentPage.Content>
 </ContentPage>
