@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace App1
 {
-    class FaceAPIModel
+    public class FaceAPIModel
     {
+        public string FaceId { get; set; }
         public FaceRectangle FaceRectangles { get; set; }
-        public List<FaceAttributes> FaceAttribute { get; set; }
+        public FaceAttribute FaceAttributes { get; set; }
 
     }
     public class FaceRectangle
@@ -20,10 +22,10 @@ namespace App1
         public int Height { get; set; }
     }
 
-    public class FaceAttributes
+    public class FaceAttribute
     {
         public string Gender { get; set; }
         public double Age { get; set; }
-
     }
+
 }

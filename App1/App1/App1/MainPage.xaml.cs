@@ -86,7 +86,13 @@ namespace App1
 
                     if(responseString != "[]")
                     {
-                        YourAge.Text = "working";
+                        var infos = JsonConvert.DeserializeObject<FaceAPIModel[]>(responseString);
+                        var moreinfos = infos[0].FaceAttributes.Age;
+                        var ami = infos[0].FaceAttributes.Gender;
+                        //string ggen = infos[0].gender;
+
+                        
+                        YourAge.Text = "your age is:" + moreinfos + "and i am : " + ami ;
                     }
                     else
                     {
