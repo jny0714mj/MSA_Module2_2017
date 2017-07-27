@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.WindowsAzure.MobileServices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,9 +13,18 @@ namespace App1
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class Load : ContentPage
 	{
-		public Load ()
+        MobileServiceClient client = AzureManager.AzureManagerInstance.AzureClient;
+
+        public Load ()
 		{
 			InitializeComponent ();
 		}
-	}
+        async void LoadNow(object sender, System.EventArgs e)
+        {
+            List<AgeList> ageInfo = await AzureManager.AzureManagerInstance.FaceInfo();
+            LoadList.ItemsSource = ageInfo;
+        }
+
+
+    }
 }

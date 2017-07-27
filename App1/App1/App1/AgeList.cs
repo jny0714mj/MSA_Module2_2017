@@ -13,10 +13,10 @@ namespace App1
         [JsonProperty(PropertyName = "Id")]
         public string ID { get; set; }
 
-        [JsonProperty(PropertyName = "Longitude")]
+        [JsonProperty(PropertyName = "Age")]
         public double Age { get; set; }
 
-        [JsonProperty(PropertyName = "Latitude")]
+        [JsonProperty(PropertyName = "Gender")]
         public string Gender { get; set; }
     }
 }

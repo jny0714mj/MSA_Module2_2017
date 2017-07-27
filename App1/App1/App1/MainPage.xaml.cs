@@ -3,12 +3,9 @@ using Plugin.Media;
 using Plugin.Media.Abstractions;
 using System;
 using System.IO;
-using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 
 namespace App1
@@ -44,9 +41,9 @@ namespace App1
             {
                 return file.GetStream();
             });
-
-            YourAge.Text = "hmmm";
-            await MakePredictionRequest(file);
+            
+            YourAge.Text = "Let me guess...";
+            await LetsGuess(file);
 
         }
 
@@ -57,7 +54,7 @@ namespace App1
             return binaryReader.ReadBytes((int)stream.Length);
         }
 
-        async Task MakePredictionRequest(MediaFile file)
+        async Task LetsGuess(MediaFile file)
         {
   
             var client = new HttpClient();
@@ -76,8 +73,6 @@ namespace App1
             {
                 
                 content.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
-                
-
                 response = await client.PostAsync(uri, content);
 
                 if (response.IsSuccessStatusCode)
@@ -87,12 +82,18 @@ namespace App1
                     if(responseString != "[]")
                     {
                         var infos = JsonConvert.DeserializeObject<FaceAPIModel[]>(responseString);
-                        var moreinfos = infos[0].FaceAttributes.Age;
-                        var ami = infos[0].FaceAttributes.Gender;
-                        //string ggen = infos[0].gender;
-
+                        var myage = infos[0].FaceAttributes.Age;
+                        var mygender = infos[0].FaceAttributes.Gender;
                         
-                        YourAge.Text = "your age is:" + moreinfos + "and i am : " + ami ;
+                        YourAge.Text = "your age is:" + myage + "and i am : " + mygender;
+
+                        AgeList lists = new AgeList()
+                        {
+                            Age = myage,
+                            Gender = mygender
+                        };
+
+                        await AzureManager.AzureManagerInstance.InsertInfo(lists);
                     }
                     else
                     {
@@ -105,14 +106,10 @@ namespace App1
                 {
                     YourAge.Text = "NOOO";
                 }
-
-
-
+                
                 //Get rid of file once wse have finished using it
                 file.Dispose();
             }
-
-
 
         }
     }
