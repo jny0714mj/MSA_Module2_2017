@@ -50,6 +50,10 @@ namespace App1
             await this.ageListTable.InsertAsync(faceModel);
         }
 
+        public async Task ClearInfo(AgeList faceModel)
+        {
+            await this.ageListTable.DeleteAsync(faceModel);
+        }
 
     }
 }

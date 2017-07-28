@@ -25,6 +25,22 @@ namespace App1
             LoadList.ItemsSource = ageInfo;
         }
 
+        async void Clear(object sender, System.EventArgs e)
+        {
+            var answer = await DisplayAlert("Warning", "Do you want to clear your history", "Yes", "No");
+
+            if (answer == true)
+            {
+                List<AgeList> ageInfo = await AzureManager.AzureManagerInstance.FaceInfo();
+                foreach (AgeList element in ageInfo)
+                {
+                    await AzureManager.AzureManagerInstance.ClearInfo(element);
+                }
+
+                List<AgeList> updatedInfo = await AzureManager.AzureManagerInstance.FaceInfo();
+                LoadList.ItemsSource = ageInfo;
+            }
+        }
 
     }
 }
