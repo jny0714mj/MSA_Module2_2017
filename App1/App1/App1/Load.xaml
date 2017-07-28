@@ -5,7 +5,7 @@
              x:Class="App1.Load">
     <ContentPage.Content>
         <StackLayout>
-            <Button Text="Load" TextColor="White" BackgroundColor="Blue" Clicked="LoadNow" />
+            <Button Text="Load" TextColor="White" BackgroundColor="Blue"  Clicked="LoadNow" />
             <Button Text="Clear" TextColor="Blue" BackgroundColor="White" Clicked="Clear" />
             <ListView x:Name="LoadList" HasUnevenRows="False">
                 <ListView.ItemTemplate>
@@ -22,3 +22,4 @@
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
+    

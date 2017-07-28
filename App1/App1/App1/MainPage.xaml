@@ -9,6 +9,7 @@
             <Button Text="Open Camera" VerticalOptions="Start" Clicked="OpenCamera" HorizontalOptions="FillAndExpand" />
             <Image x:Name="image"/>
             <Label x:Name="YourAge" HorizontalOptions="Center"/>
+            <Label x:Name="YourGender" HorizontalOptions="Center"/>
         </StackLayout>
         
     </ContentPage.Content>

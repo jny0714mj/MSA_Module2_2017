@@ -85,7 +85,8 @@ namespace App1
                         var myage = infos[0].FaceAttributes.Age;
                         var mygender = infos[0].FaceAttributes.Gender;
                         
-                        YourAge.Text = "your age is:" + myage + "and i am : " + mygender;
+                        YourAge.Text = "Your age is:" + myage;
+                        YourGender.Text = "You are : " + mygender;
 
                         AgeList lists = new AgeList()
                         {
@@ -97,14 +98,14 @@ namespace App1
                     }
                     else
                     {
-                        YourAge.Text = "face??";
+                        YourAge.Text = "I can't see any face, retake photo";
                     }
                     
 
                 }
                 else
                 {
-                    YourAge.Text = "NOOO";
+                    YourAge.Text = "NOOO SOMETHING CLAHSED";
                 }
                 
                 //Get rid of file once wse have finished using it
